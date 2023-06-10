@@ -49,6 +49,8 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\AppIcon\appicon.svg" />
+	  <None Remove="Resources\Fonts\SpaceMono-Bold.ttf" />
+	  <None Remove="Resources\Fonts\SpaceMono-Regular.ttf" />
 	</ItemGroup>
 
 	<ItemGroup>
