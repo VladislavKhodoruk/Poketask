@@ -7,7 +7,7 @@ namespace Poketask.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {
-        public ObservableCollection<PokemonCredits> AllPokemonsCredits { get; } = new();
+        public ObservableCollection<Credits> AllPokemonsCredits { get; } = new();
         public Command GetPokemonsCommand { get; }
         PokemonApiService pokemonApiService;
         public MainViewModel(PokemonApiService pokemonApiService)

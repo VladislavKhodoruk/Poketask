@@ -7,7 +7,7 @@ namespace Poketask.Services
     public class PokemonApiService
     {
         private Constants constants = new Constants();
-        List<PokemonCredits> pokemonsCredits = new();
+        List<Credits> pokemonsCredits = new();
         HttpClient httpClient;
 
         public PokemonApiService()
@@ -15,7 +15,7 @@ namespace Poketask.Services
             this.httpClient = new HttpClient();
         }
 
-        public async Task<List<PokemonCredits>> GetPokemons()
+        public async Task<List<Credits>> GetPokemons()
         {
             //todo cache
 
