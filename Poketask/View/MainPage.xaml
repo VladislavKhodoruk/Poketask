@@ -36,7 +36,7 @@
             Color="Red" />
         <CollectionView ItemsSource="{Binding AllPokemonsCredits}" VerticalOptions="FillAndExpand">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:PokemonCredits">
+                <DataTemplate x:DataType="model:Credits">
                     <Frame Margin="7" Padding="7">
                         <Label
                             FontFamily="SpaceMonoRegular"

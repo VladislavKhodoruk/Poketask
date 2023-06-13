@@ -1,6 +1,6 @@
 ﻿namespace Poketask.Model
 {
-    public class PokemonCredits
+    public class Credits
     {
         public string name { get; set; }
         public string url { get; set; }
@@ -9,9 +9,21 @@
 
     public class ApiPokemonCredits
     {
-        public int count { get; set; }
-        public string next { get; set; }
-        public string previous { get; set; }
-        public List<PokemonCredits> results { get; set; }
+        public List<Credits> results { get; set; }
+    }
+
+
+    public class Pokemon
+    {
+        public string name { get; set; }
+        public List<PokemonType> types { get; set; }
+        public int height { get; set; }
+        public int weight { get; set; }
+        public class PokemonType
+        {
+            public int slot { get; set; }
+            public Credits type { get; set; }
+        }
+
     }
 }
