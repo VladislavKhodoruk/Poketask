@@ -6,13 +6,26 @@
     xmlns:model="clr-namespace:Poketask.Model"
     xmlns:viewmodel="clr-namespace:Poketask.ViewModel"
     x:DataType="viewmodel:MainViewModel"
-    Shell.BackgroundColor="Red">
+    Shell.NavBarIsVisible="False">
 
-    <Shell.TitleView x:DataType="model:PokemonCredits">
-        <Grid Padding="7" ColumnDefinitions="5*, 1*">
+    <StackLayout BackgroundColor="#f4f7ff">
+        <ActivityIndicator
+            HorizontalOptions="FillAndExpand"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="CenterAndExpand"
+            Color="#2480d4" />
+        <Grid
+            Padding="7"
+            BackgroundColor="#2480d4"
+            ColumnDefinitions="1*, 5*"
+            ColumnSpacing="20"
+            HeightRequest="60"
+            IsVisible="{Binding IsNotBusy}"
+            VerticalOptions="Fill">
+            <Image Grid.Column="0" Source="pokeball.png" />
             <Label
-                Grid.Row="0"
-                Grid.Column="0"
+                Grid.Column="1"
                 FontFamily="SpaceMonoRegular"
                 FontSize="23"
                 HorizontalTextAlignment="Start"
@@ -20,30 +33,35 @@
                 TextColor="White"
                 VerticalOptions="CenterAndExpand"
                 VerticalTextAlignment="Center" />
-            <Image
-                Grid.Row="0"
-                Grid.Column="1"
-                Source="pokeball.png" />
         </Grid>
-    </Shell.TitleView>
-
-    <StackLayout>
-        <ActivityIndicator
-            HorizontalOptions="FillAndExpand"
-            IsRunning="{Binding IsBusy}"
-            IsVisible="{Binding IsBusy}"
-            VerticalOptions="CenterAndExpand"
-            Color="Red" />
-        <CollectionView ItemsSource="{Binding AllPokemonsCredits}" VerticalOptions="FillAndExpand">
+        <CollectionView
+            IsVisible="{Binding IsNotBusy}"
+            ItemsSource="{Binding AllPokemonsCredits}"
+            VerticalOptions="FillAndExpand">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Credits">
-                    <Frame Margin="7" Padding="7">
-                        <Label
-                            FontFamily="SpaceMonoRegular"
-                            FontSize="25"
-                            HorizontalTextAlignment="Center"
-                            Text="{Binding name}" />
-                    </Frame>
+                    <Grid Margin="12,12,12,0" Padding="0,0,2,0">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="PokemonTapped" />
+                        </Grid.GestureRecognizers>
+                        <Border
+                            Padding="6"
+                            Stroke="#e0e0e0"
+                            StrokeShape="RoundRectangle 5,5,5,5">
+                            <Label
+                                FontFamily="SpaceMonoRegular"
+                                FontSize="25"
+                                HorizontalTextAlignment="Center"
+                                Text="{Binding name}" />
+                            <Border.Shadow>
+                                <Shadow
+                                    Brush="#a1a1a1"
+                                    Opacity="0.4"
+                                    Radius="80"
+                                    Offset="0, 100" />
+                            </Border.Shadow>
+                        </Border>
+                    </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

@@ -2,6 +2,6 @@
 {
     public class Constants
     {
-        public string BASE_URL = "https://pokeapi.co/api/v2/pokemon";
+        public static string BASE_URL = "https://pokeapi.co/api/v2/pokemon";
     }
 }

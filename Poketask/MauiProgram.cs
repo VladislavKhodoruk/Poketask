@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Poketask.Services;
+using Poketask.View;
 using Poketask.ViewModel;
 
 namespace Poketask;
@@ -22,8 +23,11 @@ public static class MauiProgram
 #if DEBUG
         builder.Logging.AddDebug();
 		builder.Services.AddSingleton<MainPage>();
-        builder.Services.AddTransient<PokemonApiService>();
         builder.Services.AddTransient<MainViewModel>();
+        builder.Services.AddSingleton<PokemonPage>();
+        builder.Services.AddTransient<PokemonViewModel>();
+        builder.Services.AddTransient<PokemonApiService>();
+
 #endif
 
         return builder.Build();
