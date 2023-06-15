@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Poketask.View.PokemonPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:Poketask.Model"
+    xmlns:viewmodel="clr-namespace:Poketask.ViewModel"
+    x:DataType="viewmodel:PokemonViewModel"
+    Shell.NavBarIsVisible="False">
+    <StackLayout>
+        <Grid
+            Padding="7"
+            BackgroundColor="#2480d4"
+            ColumnDefinitions="1*, 5*"
+            ColumnSpacing="25"
+            HeightRequest="60"
+            IsVisible="{Binding IsNotBusy}"
+            VerticalOptions="Fill">
+            <Button
+                Background="Transparent"
+                Clicked="GoBack"
+                ImageSource="arrow.svg" />
+            <Label
+                Grid.Column="1"
+                FontFamily="SpaceMonoRegular"
+                FontSize="25"
+                HorizontalTextAlignment="Start"
+                IsVisible="{Binding IsNotBusy}"
+                Text="{Binding Title}"
+                TextColor="White"
+                VerticalOptions="CenterAndExpand"
+                VerticalTextAlignment="Center" />
+        </Grid>
+        <ActivityIndicator
+            HorizontalOptions="FillAndExpand"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="CenterAndExpand"
+            Color="#2480d4" />
+        <CollectionView
+            IsVisible="{Binding IsNotBusy}"
+            ItemsSource="{Binding pokemon}"
+            VerticalOptions="FillAndExpand">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Pokemon">
+                    <Grid
+                        Padding="30,0,30,0"
+                        ColumnDefinitions="1*, 1*"
+                        RowDefinitions="auto, auto, auto"
+                        RowSpacing="10">
+                        <Image
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Margin="0,-70,0,0"
+                            HeightRequest="300"
+                            HorizontalOptions="Center">
+                            <Image.Source>
+                                <UriImageSource
+                                    CacheValidity="5:00:00:00"
+                                    CachingEnabled="True"
+                                    Uri="{Binding sprites.other.home.front_shiny}" />
+                            </Image.Source>
+                            <Image.Clip>
+                                <RectangleGeometry Rect="0,10,1000,1000" />
+                            </Image.Clip>
+                        </Image>
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            FontFamily="SpaceMonoRegular"
+                            FontSize="20"
+                            HorizontalTextAlignment="Start"
+                            Text="{Binding height, StringFormat='Height: {0}'}" />
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            FontFamily="SpaceMonoRegular"
+                            FontSize="20"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding weight, StringFormat='Weight: {0}'}" />
+                    </Grid>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+
+
+</ContentPage>

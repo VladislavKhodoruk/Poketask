@@ -1,7 +1,9 @@
-﻿using Poketask.Model;
+﻿using CommunityToolkit.Mvvm.Input;
+using Poketask.Model;
 using Poketask.Services;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using Poketask.Entities;
 
 namespace Poketask.ViewModel
 {
@@ -33,7 +35,10 @@ namespace Poketask.ViewModel
                 }
 
                 foreach (var pokemonCredits in apiAllPokemonsCredits)
+                {
+                    pokemonCredits.name = Helpers.Capitalize(pokemonCredits.name);
                     AllPokemonsCredits.Add(pokemonCredits);
+                }
             }
             catch (Exception exp)
             {

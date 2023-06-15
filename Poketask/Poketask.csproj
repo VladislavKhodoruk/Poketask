@@ -50,6 +50,7 @@
 	  <None Remove="Resources\AppIcon\appicon.svg" />
 	  <None Remove="Resources\Fonts\SpaceMono-Bold.ttf" />
 	  <None Remove="Resources\Fonts\SpaceMono-Regular.ttf" />
+	  <None Remove="Resources\Images\arrow.svg" />
 	  <None Remove="Resources\Images\pokeball.png" />
 	</ItemGroup>
 
@@ -61,6 +62,13 @@
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="System.ObjectModel" Version="4.3.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="View\PokemonPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

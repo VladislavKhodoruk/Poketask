@@ -6,8 +6,8 @@ namespace Poketask.Services
 {
     public class PokemonApiService
     {
-        private Constants constants = new Constants();
         List<Credits> pokemonsCredits = new();
+        Pokemon pokemon = new();
         HttpClient httpClient;
 
         public PokemonApiService()
@@ -19,7 +19,7 @@ namespace Poketask.Services
         {
             //todo cache
 
-            var response = await httpClient.GetAsync(constants.BASE_URL);
+            var response = await httpClient.GetAsync(Constants.BASE_URL);
 
             if (response.IsSuccessStatusCode)
             {
@@ -27,6 +27,20 @@ namespace Poketask.Services
             }
 
             return pokemonsCredits;
+        }
+
+        public async Task<Pokemon> GetPokemon(string url)
+        {
+            //todo cache
+
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                pokemon = (await response.Content.ReadFromJsonAsync<Pokemon>());
+            }
+
+            return pokemon;
         }
     }
 }
