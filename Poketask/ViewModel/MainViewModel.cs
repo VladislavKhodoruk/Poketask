@@ -1,17 +1,16 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using Poketask.Model;
+﻿using Poketask.Model;
 using Poketask.Services;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Poketask.Entities;
-
 namespace Poketask.ViewModel
 {
-    public class MainViewModel : BaseViewModel
+    public partial class MainViewModel : BaseViewModel
     {
         public ObservableCollection<Credits> AllPokemonsCredits { get; } = new();
         public Command GetPokemonsCommand { get; }
         PokemonApiService pokemonApiService;
+     
         public MainViewModel(PokemonApiService pokemonApiService)
         {
             Title = "Choose your pokemon!";
@@ -19,7 +18,7 @@ namespace Poketask.ViewModel
             GetPokemonsCommand = new Command(async () => await GetPokemonsAsync());
         }
 
-        async Task GetPokemonsAsync()
+        private async Task GetPokemonsAsync()
         {
             if (IsBusy)
                 return;
@@ -27,6 +26,7 @@ namespace Poketask.ViewModel
             try
             {
                 IsBusy = true;
+
                 var apiAllPokemonsCredits = await pokemonApiService.GetPokemons();
 
                 if (AllPokemonsCredits.Count != 0)

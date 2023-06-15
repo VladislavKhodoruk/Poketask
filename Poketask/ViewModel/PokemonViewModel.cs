@@ -33,11 +33,9 @@ namespace Poketask.ViewModel
             try
             {
                 IsBusy = true;
-                var apiPokemon = await pokemonApiService.GetPokemon(pokemonCredits.url);
+                var apiPokemon = await pokemonApiService.GetPokemon(pokemonCredits.name, pokemonCredits.url);
                 apiPokemon.name = Helpers.Capitalize(apiPokemon.name);
                 Title = apiPokemon.name;
-
-                //todo cache
 
                 if (pokemon.Count != 0)
                 {
