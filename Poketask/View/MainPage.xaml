@@ -38,6 +38,13 @@
             IsVisible="{Binding IsNotBusy}"
             ItemsSource="{Binding AllPokemonsCredits}"
             VerticalOptions="FillAndExpand">
+            <CollectionView.EmptyView>
+                <Label
+                    FontFamily="SpaceMonoRegular"
+                    FontSize="30"
+                    Text="No data"
+                    TextColor="#2480d4" />
+            </CollectionView.EmptyView>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Credits">
                     <Grid Margin="12,12,12,0" Padding="0,0,2,0">

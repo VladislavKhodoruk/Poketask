@@ -14,7 +14,6 @@
             ColumnDefinitions="1*, 5*"
             ColumnSpacing="25"
             HeightRequest="60"
-            IsVisible="{Binding IsNotBusy}"
             VerticalOptions="Fill">
             <Button
                 Background="Transparent"
@@ -47,12 +46,11 @@
                         Padding="30,0,30,0"
                         ColumnDefinitions="1*, 1*"
                         RowDefinitions="auto, auto, auto"
-                        RowSpacing="10">
+                        RowSpacing="30">
                         <Image
                             Grid.Row="0"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
-                            Margin="0,-70,0,0"
                             HeightRequest="300"
                             HorizontalOptions="Center">
                             <Image.Source>

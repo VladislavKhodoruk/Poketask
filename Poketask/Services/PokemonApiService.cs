@@ -1,45 +1,61 @@
-﻿using Poketask.Entities;
+﻿using MonkeyCache.FileStore;
+using Poketask.Entities;
 using Poketask.Model;
 using System.Net.Http.Json;
 
 namespace Poketask.Services
 {
-    public class PokemonApiService
+    public partial class PokemonApiService
     {
-        List<Credits> pokemonsCredits = new();
-        Pokemon pokemon = new();
         HttpClient httpClient;
 
         public PokemonApiService()
         {
-            this.httpClient = new HttpClient();
+            httpClient = new HttpClient();
         }
 
         public async Task<List<Credits>> GetPokemons()
         {
-            //todo cache
+            List<Credits> pokemonsCredits = new();
 
-            var response = await httpClient.GetAsync(Constants.BASE_URL);
-
-            if (response.IsSuccessStatusCode)
+            if(Connectivity.NetworkAccess != NetworkAccess.Internet)
             {
-                pokemonsCredits = (await response.Content.ReadFromJsonAsync<ApiPokemonCredits>()).results;
+                pokemonsCredits = Barrel.Current.Get<List<Credits>>("pokemonsCredits");
+            }
+            else
+            {
+                var response = await httpClient.GetAsync(Constants.BASE_URL);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    pokemonsCredits = (await response.Content.ReadFromJsonAsync<ApiPokemonCredits>()).results;
+
+                    Barrel.Current.Add<List<Credits>>(Constants.POKEMONS_CREDITS_CACHE, pokemonsCredits, Constants.DEFAULT_EXPIRATION_DATE);
+                }
             }
 
             return pokemonsCredits;
         }
 
-        public async Task<Pokemon> GetPokemon(string url)
+        public async Task<Pokemon> GetPokemon(string name, string url)
         {
-            //todo cache
+            Pokemon pokemon = new();
 
-            var response = await httpClient.GetAsync(url);
-
-            if (response.IsSuccessStatusCode)
+            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
             {
-                pokemon = (await response.Content.ReadFromJsonAsync<Pokemon>());
+                pokemon = Barrel.Current.Get<Pokemon>(name);
             }
+            else
+            {
+                var response = await httpClient.GetAsync(url);
 
+                if (response.IsSuccessStatusCode)
+                {
+                    pokemon = await response.Content.ReadFromJsonAsync<Pokemon>();
+
+                    Barrel.Current.Add<Pokemon>(pokemon.name, pokemon, Constants.DEFAULT_EXPIRATION_DATE);
+                }
+            }
             return pokemon;
         }
     }
