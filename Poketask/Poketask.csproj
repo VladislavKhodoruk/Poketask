@@ -48,11 +48,23 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="hs_err_pid17104.log" />
+	  <None Remove="hs_err_pid26604.log" />
+	  <None Remove="hs_err_pid27756.log" />
+	  <None Remove="hs_err_pid5164.log" />
+	  <None Remove="hs_err_pid7988.log" />
+	  <None Remove="replay_pid5164.log" />
+	  <None Remove="replay_pid7988.log" />
 	  <None Remove="Resources\AppIcon\appicon.svg" />
 	  <None Remove="Resources\Fonts\SpaceMono-Bold.ttf" />
 	  <None Remove="Resources\Fonts\SpaceMono-Regular.ttf" />
 	  <None Remove="Resources\Images\arrow.svg" />
+	  <None Remove="Resources\Images\bug.png" />
+	  <None Remove="Resources\Images\fire.png" />
+	  <None Remove="Resources\Images\grass.png" />
+	  <None Remove="Resources\Images\poison.png" />
 	  <None Remove="Resources\Images\pokeball.png" />
+	  <None Remove="Resources\Images\water.png" />
 	</ItemGroup>
 
 	<ItemGroup>
