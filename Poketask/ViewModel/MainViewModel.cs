@@ -2,20 +2,31 @@
 using Poketask.Services;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Poketask.Entities;
+
 namespace Poketask.ViewModel
 {
     public partial class MainViewModel : BaseViewModel
     {
-        public ObservableCollection<Credits> AllPokemonsCredits { get; } = new();
-        public Command GetPokemonsCommand { get; }
         PokemonApiService pokemonApiService;
-     
+        private List<Credits> allPokemonsCredits { get; set; } = new();
+        public ObservableCollection<Credits> CurrentPokemonsCredits { get; } = new();
+        public int paginationAmount;
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(NotAllPokemonsAreShowed))]
+        bool allPokemonsAreShowed;
+        public bool NotAllPokemonsAreShowed => !allPokemonsAreShowed;
+        public Command GetPokemonsCommand { get; }
+        public Command ShowMore { get; }
         public MainViewModel(PokemonApiService pokemonApiService)
         {
             Title = "Choose your pokemon!";
             this.pokemonApiService = pokemonApiService;
             GetPokemonsCommand = new Command(async () => await GetPokemonsAsync());
+            ShowMore = new Command(async () => await Paginate(Constants.DEFAULT_PAGINATION_STEP));
+            paginationAmount = 0;
         }
 
         private async Task GetPokemonsAsync()
@@ -26,19 +37,14 @@ namespace Poketask.ViewModel
             try
             {
                 IsBusy = true;
+                allPokemonsCredits = await pokemonApiService.GetPokemons();
 
-                var apiAllPokemonsCredits = await pokemonApiService.GetPokemons();
-
-                if (AllPokemonsCredits.Count != 0)
+                if (CurrentPokemonsCredits.Count != 0)
                 {
-                    AllPokemonsCredits.Clear();
+                    CurrentPokemonsCredits.Clear();
                 }
 
-                foreach (var pokemonCredits in apiAllPokemonsCredits)
-                {
-                    pokemonCredits.name = Helpers.Capitalize(pokemonCredits.name);
-                    AllPokemonsCredits.Add(pokemonCredits);
-                }
+                await Paginate(Constants.DEFAULT_POKEMONS_AMOUNT);
             }
             catch (Exception exp)
             {
@@ -54,6 +60,29 @@ namespace Poketask.ViewModel
         public void ExecGetPokemonsAsync()
         {
             Task.Run(GetPokemonsAsync);
+        }
+
+        private async Task Paginate(int step)
+        {
+            if (AllPokemonsAreShowed)
+            {
+                return;
+            }
+
+            for (int i = paginationAmount; i < paginationAmount + step; i++)
+            {
+                CurrentPokemonsCredits.Add(allPokemonsCredits[i]);
+
+                if (CurrentPokemonsCredits.Count == allPokemonsCredits.Count)
+                {
+                    AllPokemonsAreShowed = true;
+                    paginationAmount = i;
+                    return;
+                }
+            }
+
+            paginationAmount += step;
+            return;
         }
     }
 }

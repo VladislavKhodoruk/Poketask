@@ -7,13 +7,14 @@
     xmlns:viewmodel="clr-namespace:Poketask.ViewModel"
     x:DataType="viewmodel:PokemonViewModel"
     Shell.NavBarIsVisible="False">
-    <StackLayout>
+    <StackLayout BackgroundColor="#f4f7ff">
         <Grid
             Padding="7"
             BackgroundColor="#2480d4"
-            ColumnDefinitions="1*, 5*"
-            ColumnSpacing="25"
-            HeightRequest="60"
+            ColumnDefinitions="auto, auto"
+            ColumnSpacing="15"
+            IsVisible="{Binding IsNotBusy}"
+            MinimumHeightRequest="60"
             VerticalOptions="Fill">
             <Button
                 Background="Transparent"
@@ -22,7 +23,7 @@
             <Label
                 Grid.Column="1"
                 FontFamily="SpaceMonoRegular"
-                FontSize="25"
+                FontSize="20"
                 HorizontalTextAlignment="Start"
                 IsVisible="{Binding IsNotBusy}"
                 Text="{Binding Title}"
@@ -37,48 +38,73 @@
             VerticalOptions="CenterAndExpand"
             Color="#2480d4" />
         <CollectionView
+            Margin="30,30,30,0"
             IsVisible="{Binding IsNotBusy}"
             ItemsSource="{Binding pokemon}"
             VerticalOptions="FillAndExpand">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Pokemon">
-                    <Grid
-                        Padding="30,0,30,0"
-                        ColumnDefinitions="1*, 1*"
-                        RowDefinitions="auto, auto, auto"
-                        RowSpacing="30">
-                        <Image
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Grid.ColumnSpan="2"
-                            HeightRequest="300"
-                            HorizontalOptions="Center">
-                            <Image.Source>
-                                <UriImageSource
-                                    CacheValidity="5:00:00:00"
-                                    CachingEnabled="True"
-                                    Uri="{Binding sprites.other.home.front_shiny}" />
-                            </Image.Source>
-                            <Image.Clip>
-                                <RectangleGeometry Rect="0,10,1000,1000" />
-                            </Image.Clip>
-                        </Image>
-                        <Label
-                            Grid.Row="1"
-                            Grid.Column="0"
-                            FontFamily="SpaceMonoRegular"
-                            FontSize="20"
-                            HorizontalTextAlignment="Start"
-                            Text="{Binding height, StringFormat='Height: {0}'}" />
-                        <Label
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            FontFamily="SpaceMonoRegular"
-                            FontSize="20"
-                            HorizontalTextAlignment="End"
-                            Text="{Binding weight, StringFormat='Weight: {0}'}" />
-                    </Grid>
-
+                    <Border
+                        Padding="30"
+                        Stroke="#e0e0e0"
+                        StrokeShape="RoundRectangle 5,5,5,5">
+                        <Grid
+                            ColumnDefinitions="1*, 1*"
+                            ColumnSpacing="10"
+                            RowDefinitions="auto, auto, auto"
+                            RowSpacing="30">
+                            <Image
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                HeightRequest="300"
+                                HorizontalOptions="Center">
+                                <Image.Source>
+                                    <UriImageSource
+                                        CacheValidity="5:00:00:00"
+                                        CachingEnabled="True"
+                                        Uri="{Binding sprites.other.home.front_shiny}" />
+                                </Image.Source>
+                                <Image.Clip>
+                                    <RectangleGeometry Rect="0,10,1000,1000" />
+                                </Image.Clip>
+                            </Image>
+                            <Label
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                FontFamily="SpaceMonoRegular"
+                                FontSize="16"
+                                Text="{Binding height, StringFormat='Height: {0}'}" />
+                            <Label
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                FontFamily="SpaceMonoRegular"
+                                FontSize="16"
+                                Text="{Binding weight, StringFormat='Weight: {0}'}" />
+                            <Label
+                                Grid.Row="2"
+                                FontFamily="SpaceMonoRegular"
+                                FontSize="16"
+                                Text="Types:" />
+                            <CollectionView
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                ItemsLayout="HorizontalList"
+                                ItemsSource="{Binding types}"
+                                VerticalOptions="Center">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="model:PokemonType">
+                                        <Grid Margin="0,0,20,0">
+                                            <Image
+                                                MaximumHeightRequest="30"
+                                                MaximumWidthRequest="30"
+                                                Source="{Binding image}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </Grid>
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

@@ -19,11 +19,14 @@
             Padding="7"
             BackgroundColor="#2480d4"
             ColumnDefinitions="1*, 5*"
-            ColumnSpacing="20"
-            HeightRequest="60"
+            ColumnSpacing="15"
             IsVisible="{Binding IsNotBusy}"
+            MinimumHeightRequest="60"
             VerticalOptions="Fill">
-            <Image Grid.Column="0" Source="pokeball.png" />
+            <Image
+                Grid.Column="0"
+                HeightRequest="50"
+                Source="pokeball.png" />
             <Label
                 Grid.Column="1"
                 FontFamily="SpaceMonoRegular"
@@ -36,7 +39,7 @@
         </Grid>
         <CollectionView
             IsVisible="{Binding IsNotBusy}"
-            ItemsSource="{Binding AllPokemonsCredits}"
+            ItemsSource="{Binding CurrentPokemonsCredits}"
             VerticalOptions="FillAndExpand">
             <CollectionView.EmptyView>
                 <Label
@@ -72,5 +75,14 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+        <Grid Padding="12">
+            <Button
+                BackgroundColor="#2480d4"
+                Command="{Binding ShowMore}"
+                FontFamily="SpaceMonoRegular"
+                FontSize="20"
+                IsVisible="{Binding NotAllPokemonsAreShowed}"
+                Text="Show more" />
+        </Grid>
     </StackLayout>
 </ContentPage>

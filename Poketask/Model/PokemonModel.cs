@@ -21,6 +21,7 @@
     public class PokemonType
     {
         public Credits type { get; set; }
+        public string image { get; set; }
     }
 
     public class Sprites
