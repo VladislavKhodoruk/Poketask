@@ -58,7 +58,6 @@
 	  <None Remove="Resources\AppIcon\appicon.svg" />
 	  <None Remove="Resources\Fonts\SpaceMono-Bold.ttf" />
 	  <None Remove="Resources\Fonts\SpaceMono-Regular.ttf" />
-	  <None Remove="Resources\Images\arrow.svg" />
 	  <None Remove="Resources\Images\bug.png" />
 	  <None Remove="Resources\Images\fire.png" />
 	  <None Remove="Resources\Images\flying.png" />
