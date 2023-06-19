@@ -12,12 +12,13 @@
     <ContentPage.Resources>
         <entities:CapitalizeConverter x:Key="CapitalizeConverter" />
         <entities:AllTrueMultiConverter x:Key="AllTrueMultiConverter" />
-    </ContentPage.Resources>
-    <StackLayout BackgroundColor="#f4f7ff">
 
+    </ContentPage.Resources>
+
+    <StackLayout Style="{StaticResource DefaultStackLayout}">
         <Grid
             Padding="7"
-            BackgroundColor="#2480d4"
+            BackgroundColor="{StaticResource BlueMain}"
             ColumnDefinitions="1*, 5*"
             ColumnSpacing="15"
             IsVisible="{Binding IsNotBusy}"
@@ -29,31 +30,18 @@
                 Source="pokeball.png" />
             <Label
                 Grid.Column="1"
-                FontFamily="SpaceMonoRegular"
-                FontSize="23"
-                HorizontalTextAlignment="Start"
-                Text="{Binding Title}"
-                TextColor="White"
-                VerticalOptions="CenterAndExpand"
-                VerticalTextAlignment="Center" />
+                Style="{StaticResource TitleLabel}"
+                Text="{Binding Title}" />
         </Grid>
 
         <ActivityIndicator
-            HorizontalOptions="FillAndExpand"
             IsRunning="{Binding IsBusy}"
             IsVisible="{Binding IsBusy}"
-            VerticalOptions="CenterAndExpand"
-            Color="#2480d4" />
+            Style="{StaticResource DefaultActivityIndicator}" />
 
         <Label
-            Grid.Column="1"
-            FontFamily="SpaceMonoRegular"
-            FontSize="30"
-            HorizontalTextAlignment="Center"
-            Text="No data"
-            TextColor="#2480d4"
-            VerticalOptions="CenterAndExpand"
-            VerticalTextAlignment="Center">
+            Style="{StaticResource NoDataLabel}"
+            Grid.Column="1">
             <Label.IsVisible>
                 <MultiBinding Converter="{StaticResource AllTrueMultiConverter}">
                     <Binding Path="IsNotBusy" />
@@ -71,7 +59,7 @@
                     FontFamily="SpaceMonoRegular"
                     FontSize="30"
                     Text="No data"
-                    TextColor="#2480d4" />
+                    TextColor="{StaticResource BlueMain}" />
             </CollectionView.EmptyView>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Credits">
@@ -85,7 +73,7 @@
                         <Border
                             Padding="6"
                             BackgroundColor="White"
-                            Stroke="#e0e0e0"
+                            Stroke="{StaticResource GrayLight}"
                             StrokeShape="RoundRectangle 5,5,5,5">
                             <Label
                                 FontFamily="SpaceMonoRegular"
@@ -94,7 +82,7 @@
                                 Text="{Binding name, Converter={StaticResource CapitalizeConverter}}" />
                             <Border.Shadow>
                                 <Shadow
-                                    Brush="#a1a1a1"
+                                    Brush="{StaticResource GrayShadow}"
                                     Opacity="0.4"
                                     Radius="80"
                                     Offset="0, 100" />
@@ -106,7 +94,7 @@
         </CollectionView>
         <Grid Padding="12">
             <Button
-                BackgroundColor="#2480d4"
+                BackgroundColor="{StaticResource BlueSecondary}"
                 Command="{Binding ShowMore}"
                 FontFamily="SpaceMonoRegular"
                 FontSize="20"
