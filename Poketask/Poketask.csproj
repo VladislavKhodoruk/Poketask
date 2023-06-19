@@ -61,7 +61,9 @@
 	  <None Remove="Resources\Images\arrow.svg" />
 	  <None Remove="Resources\Images\bug.png" />
 	  <None Remove="Resources\Images\fire.png" />
+	  <None Remove="Resources\Images\flying.png" />
 	  <None Remove="Resources\Images\grass.png" />
+	  <None Remove="Resources\Images\normal.png" />
 	  <None Remove="Resources\Images\poison.png" />
 	  <None Remove="Resources\Images\pokeball.png" />
 	  <None Remove="Resources\Images\water.png" />

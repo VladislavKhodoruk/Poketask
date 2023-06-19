@@ -3,10 +3,17 @@
     x:Class="Poketask.View.PokemonPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:entities="clr-namespace:Poketask.Entities"
     xmlns:model="clr-namespace:Poketask.Model"
     xmlns:viewmodel="clr-namespace:Poketask.ViewModel"
     x:DataType="viewmodel:PokemonViewModel"
     Shell.NavBarIsVisible="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <entities:AddFileExtension x:Key="AddFileExtension" />
+            <entities:CapitalizeConverter x:Key="CapitalizeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <StackLayout BackgroundColor="#f4f7ff">
         <Grid
             Padding="7"
@@ -26,7 +33,7 @@
                 FontSize="20"
                 HorizontalTextAlignment="Start"
                 IsVisible="{Binding IsNotBusy}"
-                Text="{Binding Title}"
+                Text="{Binding Title, Converter={StaticResource CapitalizeConverter}}"
                 TextColor="White"
                 VerticalOptions="CenterAndExpand"
                 VerticalTextAlignment="Center" />
@@ -41,17 +48,19 @@
             Margin="30,30,30,0"
             IsVisible="{Binding IsNotBusy}"
             ItemsSource="{Binding pokemon}"
+            MaximumWidthRequest="500"
             VerticalOptions="FillAndExpand">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Pokemon">
                     <Border
                         Padding="30"
+                        MaximumWidthRequest="500"
                         Stroke="#e0e0e0"
                         StrokeShape="RoundRectangle 5,5,5,5">
                         <Grid
                             ColumnDefinitions="1*, 1*"
                             ColumnSpacing="10"
-                            RowDefinitions="auto, auto, auto"
+                            RowDefinitions="auto, auto"
                             RowSpacing="30">
                             <Image
                                 Grid.Row="0"
@@ -81,25 +90,20 @@
                                 FontFamily="SpaceMonoRegular"
                                 FontSize="16"
                                 Text="{Binding weight, StringFormat='Weight: {0}'}" />
-                            <Label
-                                Grid.Row="2"
-                                FontFamily="SpaceMonoRegular"
-                                FontSize="16"
-                                Text="Types:" />
                             <CollectionView
-                                Grid.Row="2"
+                                Grid.Row="0"
                                 Grid.Column="1"
+                                HorizontalOptions="End"
                                 ItemsLayout="HorizontalList"
                                 ItemsSource="{Binding types}"
-                                VerticalOptions="Center">
+                                VerticalOptions="Start">
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate x:DataType="model:PokemonType">
-                                        <Grid Margin="0,0,20,0">
-                                            <Image
-                                                MaximumHeightRequest="30"
-                                                MaximumWidthRequest="30"
-                                                Source="{Binding image}" />
-                                        </Grid>
+                                        <Image
+                                            Margin="0,0,20,0"
+                                            HeightRequest="30"
+                                            Source="{Binding type.name, Converter={StaticResource AddFileExtension}, ConverterParameter=png}"
+                                            WidthRequest="35" />
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>
                             </CollectionView>

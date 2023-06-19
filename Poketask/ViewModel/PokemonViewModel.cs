@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Poketask.Entities;
 using Poketask.Model;
 using Poketask.Services;
 using System.Collections.ObjectModel;
@@ -34,7 +33,6 @@ namespace Poketask.ViewModel
             {
                 IsBusy = true;
                 var apiPokemon = await pokemonApiService.GetPokemon(pokemonCredits.name, pokemonCredits.url);
-                apiPokemon.name = Helpers.Capitalize(apiPokemon.name);
                 Title = apiPokemon.name;
 
                 if (pokemon.Count != 0)
@@ -43,7 +41,6 @@ namespace Poketask.ViewModel
                 }
 
                 pokemon.Add(apiPokemon);
-
             }
             catch (Exception exp)
             {

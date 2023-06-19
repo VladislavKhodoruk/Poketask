@@ -3,11 +3,14 @@
     x:Class="Poketask.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:entities="clr-namespace:Poketask.Entities"
     xmlns:model="clr-namespace:Poketask.Model"
     xmlns:viewmodel="clr-namespace:Poketask.ViewModel"
     x:DataType="viewmodel:MainViewModel"
     Shell.NavBarIsVisible="False">
-
+    <ContentPage.Resources>
+        <entities:CapitalizeConverter x:Key="CapitalizeConverter" />
+    </ContentPage.Resources>
     <StackLayout BackgroundColor="#f4f7ff">
         <ActivityIndicator
             HorizontalOptions="FillAndExpand"
@@ -50,19 +53,23 @@
             </CollectionView.EmptyView>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Credits">
-                    <Grid Margin="12,12,12,0" Padding="0,0,2,0">
+                    <Grid
+                        Margin="12,12,12,0"
+                        Padding="0,0,2,0"
+                        MaximumWidthRequest="500">
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer Tapped="PokemonTapped" />
                         </Grid.GestureRecognizers>
                         <Border
                             Padding="6"
+                            BackgroundColor="White"
                             Stroke="#e0e0e0"
                             StrokeShape="RoundRectangle 5,5,5,5">
                             <Label
                                 FontFamily="SpaceMonoRegular"
                                 FontSize="25"
                                 HorizontalTextAlignment="Center"
-                                Text="{Binding name}" />
+                                Text="{Binding name, Converter={StaticResource CapitalizeConverter}}" />
                             <Border.Shadow>
                                 <Shadow
                                     Brush="#a1a1a1"
@@ -82,6 +89,7 @@
                 FontFamily="SpaceMonoRegular"
                 FontSize="20"
                 IsVisible="{Binding NotAllPokemonsAreShowed}"
+                MaximumWidthRequest="500"
                 Text="Show more" />
         </Grid>
     </StackLayout>

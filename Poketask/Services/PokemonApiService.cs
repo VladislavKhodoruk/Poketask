@@ -29,10 +29,6 @@ namespace Poketask.Services
                 if (response.IsSuccessStatusCode)
                 {
                     pokemonsCredits = (await response.Content.ReadFromJsonAsync<ApiPokemonCredits>()).results;
-                    foreach(Credits pokemonCredits in pokemonsCredits)
-                    {
-                        pokemonCredits.name = Helpers.Capitalize(pokemonCredits.name);
-                    }
                     Barrel.Current.Add<List<Credits>>(Constants.POKEMONS_CREDITS_CACHE, pokemonsCredits, Constants.DEFAULT_EXPIRATION_DATE);
                 }
             }
@@ -55,8 +51,6 @@ namespace Poketask.Services
                 if (response.IsSuccessStatusCode)
                 {
                     pokemon = await response.Content.ReadFromJsonAsync<Pokemon>();
-                    pokemon.types.ForEach(type => type.image = type.type.name + ".png");
-                    pokemon.name = Helpers.Capitalize(pokemon.name);
                     Barrel.Current.Add(pokemon.name, pokemon, Constants.DEFAULT_EXPIRATION_DATE);
                 }
             }
