@@ -22,9 +22,4 @@ public partial class PokemonPage : ContentPage
 
         await Shell.Current.GoToAsync($"///{nameof(MainPage)}", true);
     }
-
-    private void Button_Clicked(object sender, EventArgs e)
-    {
-
-    }
 }
