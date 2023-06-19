@@ -8,6 +8,7 @@ namespace Poketask.Services
     public partial class PokemonApiService
     {
         HttpClient httpClient;
+        List<Credits> pokemonsCredits = new();
 
         public PokemonApiService()
         {
@@ -16,7 +17,10 @@ namespace Poketask.Services
 
         public async Task<List<Credits>> GetPokemons()
         {
-            List<Credits> pokemonsCredits = new();
+            if(pokemonsCredits.Count > 0)
+            {
+                return pokemonsCredits;
+            }
 
             if(Connectivity.NetworkAccess != NetworkAccess.Internet)
             {

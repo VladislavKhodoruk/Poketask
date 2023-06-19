@@ -9,14 +9,16 @@ namespace Poketask.ViewModel
     [QueryProperty(nameof(PokemonCredits), "PokemonCredits")]
     public partial class PokemonViewModel : BaseViewModel
     {
-        public ObservableCollection<Pokemon> pokemon { get; } = new();
+
+        [ObservableProperty]
+        Pokemon pokemon;
 
         public Command GetPokemonCommand { get; }
         PokemonApiService pokemonApiService;
 
         [ObservableProperty]
         Credits pokemonCredits;
-   
+
         public PokemonViewModel(PokemonApiService pokemonApiService)
         {
             Title = "Pokemon info";
@@ -33,14 +35,15 @@ namespace Poketask.ViewModel
             {
                 IsBusy = true;
                 var apiPokemon = await pokemonApiService.GetPokemon(pokemonCredits.name, pokemonCredits.url);
-                Title = apiPokemon.name;
-
-                if (pokemon.Count != 0)
+                if (apiPokemon == null)
                 {
-                    pokemon.Clear();
+                    NoData = true;
+                    Title = "Ooops...";
+                    return;
                 }
-
-                pokemon.Add(apiPokemon);
+                NoData = false;
+                Title = apiPokemon.name;
+                Pokemon = apiPokemon;
             }
             catch (Exception exp)
             {

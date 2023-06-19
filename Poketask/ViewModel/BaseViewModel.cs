@@ -7,8 +7,14 @@ namespace Poketask.ViewModel
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsNotBusy))]
         bool isBusy;
+        public bool IsNotBusy => !IsBusy;
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(WithData))]
+        bool noData;
+        public bool WithData => !NoData;
+        
         [ObservableProperty]
         string title;
-        public bool IsNotBusy => !IsBusy;
     }
 }

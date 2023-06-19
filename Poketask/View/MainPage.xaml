@@ -8,16 +8,12 @@
     xmlns:viewmodel="clr-namespace:Poketask.ViewModel"
     x:DataType="viewmodel:MainViewModel"
     Shell.NavBarIsVisible="False">
+    
     <ContentPage.Resources>
         <entities:CapitalizeConverter x:Key="CapitalizeConverter" />
     </ContentPage.Resources>
     <StackLayout BackgroundColor="#f4f7ff">
-        <ActivityIndicator
-            HorizontalOptions="FillAndExpand"
-            IsRunning="{Binding IsBusy}"
-            IsVisible="{Binding IsBusy}"
-            VerticalOptions="CenterAndExpand"
-            Color="#2480d4" />
+
         <Grid
             Padding="7"
             BackgroundColor="#2480d4"
@@ -40,6 +36,15 @@
                 VerticalOptions="CenterAndExpand"
                 VerticalTextAlignment="Center" />
         </Grid>
+
+        <ActivityIndicator
+            HorizontalOptions="FillAndExpand"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="CenterAndExpand"
+            Color="#2480d4" />
+
+     
         <CollectionView
             IsVisible="{Binding IsNotBusy}"
             ItemsSource="{Binding CurrentPokemonsCredits}"

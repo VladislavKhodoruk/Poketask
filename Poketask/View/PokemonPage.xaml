@@ -12,6 +12,7 @@
         <ResourceDictionary>
             <entities:AddFileExtension x:Key="AddFileExtension" />
             <entities:CapitalizeConverter x:Key="CapitalizeConverter" />
+            <entities:AllTrueMultiConverter x:Key="AllTrueMultiConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <StackLayout BackgroundColor="#f4f7ff">
@@ -38,81 +39,96 @@
                 VerticalOptions="CenterAndExpand"
                 VerticalTextAlignment="Center" />
         </Grid>
+
+        <Label
+            Grid.Column="1"
+            FontFamily="SpaceMonoRegular"
+            FontSize="30"
+            HorizontalTextAlignment="Center"
+            Text="No data"
+            TextColor="#2480d4"
+            VerticalOptions="CenterAndExpand"
+            VerticalTextAlignment="Center">
+            <Label.IsVisible>
+                <MultiBinding Converter="{StaticResource AllTrueMultiConverter}">
+                    <Binding Path="IsNotBusy" />
+                    <Binding Path="NoData" />
+                </MultiBinding>
+            </Label.IsVisible>
+        </Label>
+
         <ActivityIndicator
             HorizontalOptions="FillAndExpand"
             IsRunning="{Binding IsBusy}"
             IsVisible="{Binding IsBusy}"
             VerticalOptions="CenterAndExpand"
             Color="#2480d4" />
-        <CollectionView
-            Margin="30,30,30,0"
-            IsVisible="{Binding IsNotBusy}"
-            ItemsSource="{Binding pokemon}"
-            MaximumWidthRequest="500"
-            VerticalOptions="FillAndExpand">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:Pokemon">
-                    <Border
-                        Padding="30"
-                        MaximumWidthRequest="500"
-                        Stroke="#e0e0e0"
-                        StrokeShape="RoundRectangle 5,5,5,5">
-                        <Grid
-                            ColumnDefinitions="1*, 1*"
-                            ColumnSpacing="10"
-                            RowDefinitions="auto, auto"
-                            RowSpacing="30">
-                            <Image
-                                Grid.Row="0"
-                                Grid.Column="0"
-                                Grid.ColumnSpan="2"
-                                HeightRequest="300"
-                                HorizontalOptions="Center">
-                                <Image.Source>
-                                    <UriImageSource
-                                        CacheValidity="5:00:00:00"
-                                        CachingEnabled="True"
-                                        Uri="{Binding sprites.other.home.front_shiny}" />
-                                </Image.Source>
-                                <Image.Clip>
-                                    <RectangleGeometry Rect="0,10,1000,1000" />
-                                </Image.Clip>
-                            </Image>
-                            <Label
-                                Grid.Row="1"
-                                Grid.Column="0"
-                                FontFamily="SpaceMonoRegular"
-                                FontSize="16"
-                                Text="{Binding height, StringFormat='Height: {0}'}" />
-                            <Label
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                FontFamily="SpaceMonoRegular"
-                                FontSize="16"
-                                Text="{Binding weight, StringFormat='Weight: {0}'}" />
-                            <CollectionView
-                                Grid.Row="0"
-                                Grid.Column="1"
-                                HorizontalOptions="End"
-                                ItemsLayout="HorizontalList"
-                                ItemsSource="{Binding types}"
-                                VerticalOptions="Start">
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate x:DataType="model:PokemonType">
-                                        <Image
-                                            Margin="0,0,20,0"
-                                            HeightRequest="30"
-                                            Source="{Binding type.name, Converter={StaticResource AddFileExtension}, ConverterParameter=png}"
-                                            WidthRequest="35" />
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+        
+        <VerticalStackLayout Padding="30">
+            <VerticalStackLayout.IsVisible>
+                <MultiBinding Converter="{StaticResource AllTrueMultiConverter}">
+                    <Binding Path="IsNotBusy" />
+                    <Binding Path="WithData" />
+                </MultiBinding>
+            </VerticalStackLayout.IsVisible>
+            <Border
+                Padding="30"
+                HorizontalOptions="Center"
+                MaximumWidthRequest="500"
+                Stroke="#e0e0e0"
+                StrokeShape="RoundRectangle 5,5,5,5">
+                <Grid
+                    ColumnDefinitions="1*, 1*"
+                    ColumnSpacing="10"
+                    RowDefinitions="auto, auto"
+                    RowSpacing="30">
+                    <Image
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        HeightRequest="250"
+                        HorizontalOptions="Center">
+                        <Image.Source>
+                            <UriImageSource
+                                CacheValidity="5:00:00:00"
+                                CachingEnabled="True"
+                                Uri="{Binding Pokemon.sprites.other.home.front_shiny}" />
+                        </Image.Source>
+                        <Image.Clip>
+                            <RectangleGeometry Rect="0,10,1000,1000" />
+                        </Image.Clip>
+                    </Image>
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        FontFamily="SpaceMonoRegular"
+                        FontSize="16"
+                        Text="{Binding Pokemon.height, StringFormat='Height: {0}'}" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        FontFamily="SpaceMonoRegular"
+                        FontSize="16"
+                        Text="{Binding Pokemon.weight, StringFormat='Weight: {0}'}" />
+                    <CollectionView
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        HorizontalOptions="End"
+                        ItemsLayout="HorizontalList"
+                        ItemsSource="{Binding Pokemon.types}"
+                        VerticalOptions="Start">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:PokemonType">
+                                <Image
+                                    Margin="0,0,20,0"
+                                    HeightRequest="30"
+                                    Source="{Binding type.name, Converter={StaticResource AddFileExtension}, ConverterParameter=png}"
+                                    WidthRequest="35" />
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+            </Border>
+        </VerticalStackLayout>
     </StackLayout>
-
-
 </ContentPage>
