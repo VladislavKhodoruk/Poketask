@@ -39,6 +39,14 @@ namespace Poketask.ViewModel
                 IsBusy = true;
                 allPokemonsCredits = await pokemonApiService.GetPokemons();
 
+                if (allPokemonsCredits == null)
+                {
+                    NoData = true;
+                    Title = "Ooops...";
+                    return;
+                }
+
+                NoData = false;
                 if (CurrentPokemonsCredits.Count != 0)
                 {
                     CurrentPokemonsCredits.Clear();

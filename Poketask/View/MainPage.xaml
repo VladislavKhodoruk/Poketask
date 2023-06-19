@@ -8,9 +8,10 @@
     xmlns:viewmodel="clr-namespace:Poketask.ViewModel"
     x:DataType="viewmodel:MainViewModel"
     Shell.NavBarIsVisible="False">
-    
+
     <ContentPage.Resources>
         <entities:CapitalizeConverter x:Key="CapitalizeConverter" />
+        <entities:AllTrueMultiConverter x:Key="AllTrueMultiConverter" />
     </ContentPage.Resources>
     <StackLayout BackgroundColor="#f4f7ff">
 
@@ -44,7 +45,23 @@
             VerticalOptions="CenterAndExpand"
             Color="#2480d4" />
 
-     
+        <Label
+            Grid.Column="1"
+            FontFamily="SpaceMonoRegular"
+            FontSize="30"
+            HorizontalTextAlignment="Center"
+            Text="No data"
+            TextColor="#2480d4"
+            VerticalOptions="CenterAndExpand"
+            VerticalTextAlignment="Center">
+            <Label.IsVisible>
+                <MultiBinding Converter="{StaticResource AllTrueMultiConverter}">
+                    <Binding Path="IsNotBusy" />
+                    <Binding Path="NoData" />
+                </MultiBinding>
+            </Label.IsVisible>
+        </Label>
+
         <CollectionView
             IsVisible="{Binding IsNotBusy}"
             ItemsSource="{Binding CurrentPokemonsCredits}"

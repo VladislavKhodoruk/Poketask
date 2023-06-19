@@ -24,10 +24,14 @@
             IsVisible="{Binding IsNotBusy}"
             MinimumHeightRequest="60"
             VerticalOptions="Fill">
-            <Button
-                Background="Transparent"
-                Clicked="GoBack"
-                ImageSource="arrow.svg" />
+            <Border Background="Transparent" StrokeShape="RoundRectangle 10,10,10,10">
+                <Button
+                    Background="Transparent"
+                    Clicked="GoBack"
+                    FontFamily="SpaceMonoRegular"
+                    FontSize="15"
+                    Text="Back" />
+            </Border>
             <Label
                 Grid.Column="1"
                 FontFamily="SpaceMonoRegular"
@@ -39,6 +43,13 @@
                 VerticalOptions="CenterAndExpand"
                 VerticalTextAlignment="Center" />
         </Grid>
+
+        <ActivityIndicator
+            HorizontalOptions="FillAndExpand"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="CenterAndExpand"
+            Color="#2480d4" />
 
         <Label
             Grid.Column="1"
@@ -57,13 +68,6 @@
             </Label.IsVisible>
         </Label>
 
-        <ActivityIndicator
-            HorizontalOptions="FillAndExpand"
-            IsRunning="{Binding IsBusy}"
-            IsVisible="{Binding IsBusy}"
-            VerticalOptions="CenterAndExpand"
-            Color="#2480d4" />
-        
         <VerticalStackLayout Padding="30">
             <VerticalStackLayout.IsVisible>
                 <MultiBinding Converter="{StaticResource AllTrueMultiConverter}">
