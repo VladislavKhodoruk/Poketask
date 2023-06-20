@@ -21,9 +21,21 @@ namespace Poketask.ViewModel
 
         public PokemonViewModel(PokemonApiService pokemonApiService)
         {
-            Title = "Pokemon info";
             this.pokemonApiService = pokemonApiService;
             GetPokemonCommand = new Command(async () => await GetPokemonAsync());
+
+            Title = GetTitleByConnectionStatus(Connectivity.NetworkAccess == NetworkAccess.Internet);
+            Connectivity.ConnectivityChanged += (sender, e) =>
+            {
+                Title = GetTitleByConnectionStatus(e.NetworkAccess == NetworkAccess.Internet);
+            };
+        }
+
+        private string GetTitleByConnectionStatus(bool connectionStatus)
+        {
+            if (connectionStatus) return "Pokemon info";
+
+            return "You're offline";
         }
 
         async Task GetPokemonAsync()
@@ -38,12 +50,11 @@ namespace Poketask.ViewModel
                 if (apiPokemon == null)
                 {
                     NoData = true;
-                    Title = "Ooops...";
                     return;
                 }
-                NoData = false;
-                Title = apiPokemon.name;
+
                 Pokemon = apiPokemon;
+                NoData = false;
             }
             catch (Exception exp)
             {

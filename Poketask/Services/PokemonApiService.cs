@@ -17,7 +17,7 @@ namespace Poketask.Services
 
         public async Task<List<Credits>> GetPokemons()
         {
-            if(pokemonsCredits.Count > 0)
+            if(pokemonsCredits?.Count > 0)
             {
                 return pokemonsCredits;
             }

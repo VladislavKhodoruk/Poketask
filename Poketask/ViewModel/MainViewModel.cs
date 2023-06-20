@@ -22,11 +22,23 @@ namespace Poketask.ViewModel
         public Command ShowMore { get; }
         public MainViewModel(PokemonApiService pokemonApiService)
         {
-            Title = "Choose your pokemon!";
             this.pokemonApiService = pokemonApiService;
             GetPokemonsCommand = new Command(async () => await GetPokemonsAsync());
             ShowMore = new Command(async () => await Paginate(Constants.DEFAULT_PAGINATION_STEP));
-            paginationAmount = 0;
+            paginationAmount = 10;
+            
+            Title = GetTitleByConnectionStatus(Connectivity.NetworkAccess == NetworkAccess.Internet);
+            Connectivity.ConnectivityChanged += (sender, e) =>
+            {
+                Title = GetTitleByConnectionStatus(e.NetworkAccess == NetworkAccess.Internet);
+            };
+        }
+
+        private string GetTitleByConnectionStatus(bool connectionStatus)
+        {
+            if (connectionStatus) return "Choose your pokemon!";
+
+            return "You're offline";
         }
 
         private async Task GetPokemonsAsync()
@@ -42,7 +54,6 @@ namespace Poketask.ViewModel
                 if (allPokemonsCredits == null)
                 {
                     NoData = true;
-                    Title = "Ooops...";
                     return;
                 }
 
@@ -52,7 +63,10 @@ namespace Poketask.ViewModel
                     CurrentPokemonsCredits.Clear();
                 }
 
-                await Paginate(Constants.DEFAULT_POKEMONS_AMOUNT);
+                for (int i = 0; i < 10; i++)
+                {
+                    CurrentPokemonsCredits.Add(allPokemonsCredits[i]);
+                }
             }
             catch (Exception exp)
             {
