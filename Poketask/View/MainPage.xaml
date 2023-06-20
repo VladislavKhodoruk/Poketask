@@ -12,16 +12,14 @@
     <ContentPage.Resources>
         <entities:CapitalizeConverter x:Key="CapitalizeConverter" />
         <entities:AllTrueMultiConverter x:Key="AllTrueMultiConverter" />
-
     </ContentPage.Resources>
 
     <StackLayout Style="{StaticResource DefaultStackLayout}">
         <Grid
             Padding="7"
             BackgroundColor="{StaticResource BlueMain}"
-            ColumnDefinitions="1*, 5*"
+            ColumnDefinitions="auto, auto"
             ColumnSpacing="15"
-            IsVisible="{Binding IsNotBusy}"
             MinimumHeightRequest="60"
             VerticalOptions="Fill">
             <Image
@@ -39,28 +37,36 @@
             IsVisible="{Binding IsBusy}"
             Style="{StaticResource DefaultActivityIndicator}" />
 
-        <Label
-            Style="{StaticResource NoDataLabel}"
-            Grid.Column="1">
-            <Label.IsVisible>
+        <Grid
+            HorizontalOptions="CenterAndExpand"
+            RowDefinitions="auto, auto"
+            RowSpacing="15"
+            VerticalOptions="CenterAndExpand">
+            <Grid.IsVisible>
                 <MultiBinding Converter="{StaticResource AllTrueMultiConverter}">
                     <Binding Path="IsNotBusy" />
                     <Binding Path="NoData" />
                 </MultiBinding>
-            </Label.IsVisible>
-        </Label>
+            </Grid.IsVisible>
+            <Label
+                Grid.Row="0"
+                Grid.Column="1"
+                HorizontalOptions="Center"
+                Style="{StaticResource NoDataLabel}"
+                VerticalOptions="Center" />
+            <Button
+                Grid.Row="1"
+                Command="{Binding GetPokemonsCommand}"
+                HorizontalOptions="Center"
+                Style="{StaticResource RefreshButton}"
+                Text="Refresh"
+                VerticalOptions="Center" />
+        </Grid>
 
         <CollectionView
             IsVisible="{Binding IsNotBusy}"
             ItemsSource="{Binding CurrentPokemonsCredits}"
             VerticalOptions="FillAndExpand">
-            <CollectionView.EmptyView>
-                <Label
-                    FontFamily="SpaceMonoRegular"
-                    FontSize="30"
-                    Text="No data"
-                    TextColor="{StaticResource BlueMain}" />
-            </CollectionView.EmptyView>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Credits">
                     <Grid
@@ -93,14 +99,15 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
         <Grid Padding="12">
-            <Button
-                BackgroundColor="{StaticResource BlueSecondary}"
-                Command="{Binding ShowMore}"
-                FontFamily="SpaceMonoRegular"
-                FontSize="20"
-                IsVisible="{Binding NotAllPokemonsAreShowed}"
-                MaximumWidthRequest="500"
-                Text="Show more" />
+            <Button Command="{Binding ShowMore}" Style="{StaticResource ShowMoreButton}">
+                <Button.IsVisible>
+                    <MultiBinding Converter="{StaticResource AllTrueMultiConverter}">
+                        <Binding Path="NotAllPokemonsAreShowed" />
+                        <Binding Path="WithData" />
+                        <Binding Path="IsNotBusy" />
+                    </MultiBinding>
+                </Button.IsVisible>
+            </Button>
         </Grid>
     </StackLayout>
 </ContentPage>

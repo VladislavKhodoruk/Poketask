@@ -423,8 +423,24 @@
     <Style x:Key="GoBackButton" TargetType="Button">
         <Setter Property="FontFamily" Value="SpaceMonoRegular" />
         <Setter Property="FontSize" Value="15" />
-        <Setter Property="Text" Value="GoBack" />
+        <Setter Property="Text" Value="Back" />
         <Setter Property="Background" Value="{StaticResource BlueSecondary}" />
+    </Style>
+
+    <Style x:Key="ShowMoreButton" TargetType="Button">
+        <Setter Property="FontFamily" Value="SpaceMonoRegular" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="Text" Value="Show more" />
+        <Setter Property="Background" Value="{StaticResource BlueSecondary}" />
+        <Setter Property="MaximumWidthRequest" Value="500" />
+    </Style>
+
+    <Style x:Key="RefreshButton" TargetType="Button">
+        <Setter Property="FontFamily" Value="SpaceMonoRegular" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="Text" Value="Show more" />
+        <Setter Property="Background" Value="{StaticResource BlueSecondary}" />
+        <Setter Property="MaximumWidthRequest" Value="500" />
     </Style>
 
     <Style x:Key="NoDataLabel" TargetType="Label">
