@@ -423,31 +423,40 @@
     <Style x:Key="GoBackButton" TargetType="Button">
         <Setter Property="FontFamily" Value="SpaceMonoRegular" />
         <Setter Property="FontSize" Value="15" />
-        <Setter Property="Text" Value="Back" />
+        <Setter Property="Text" Value="BACK" />
         <Setter Property="Background" Value="{StaticResource BlueSecondary}" />
     </Style>
 
-    <Style x:Key="ShowMoreButton" TargetType="Button">
+    <Style x:Key="DefaultButton" TargetType="Button">
         <Setter Property="FontFamily" Value="SpaceMonoRegular" />
         <Setter Property="FontSize" Value="20" />
-        <Setter Property="Text" Value="Show more" />
-        <Setter Property="Background" Value="{StaticResource BlueSecondary}" />
-        <Setter Property="MaximumWidthRequest" Value="500" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="BorderWidth" Value="2" />
+        <Setter Property="BorderColor" Value="{StaticResource BlueLight}" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="TextColor" Value="{StaticResource BlueDark}" />
     </Style>
 
-    <Style x:Key="RefreshButton" TargetType="Button">
-        <Setter Property="FontFamily" Value="SpaceMonoRegular" />
-        <Setter Property="FontSize" Value="20" />
-        <Setter Property="Text" Value="Show more" />
-        <Setter Property="Background" Value="{StaticResource BlueSecondary}" />
-        <Setter Property="MaximumWidthRequest" Value="500" />
+    <Style
+        x:Key="RefreshButton"
+        BasedOn="{StaticResource DefaultButton}"
+        TargetType="Button">
+        <Setter Property="Text" Value="REFRESH" />
+    </Style>
+
+    <Style
+        x:Key="ShowMoreButton"
+        BasedOn="{StaticResource DefaultButton}"
+        TargetType="Button">
+        <Setter Property="Text" Value="SHOW MORE" />
     </Style>
 
     <Style x:Key="NoDataLabel" TargetType="Label">
         <Setter Property="FontFamily" Value="SpaceMonoRegular" />
-        <Setter Property="FontSize" Value="30" />
-        <Setter Property="Text" Value="No data" />
-        <Setter Property="TextColor" Value="{StaticResource BlueMain}" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="Text" Value="Something went wrong..." />
+        <Setter Property="TextColor" Value="{StaticResource BlueDark}" />
         <Setter Property="HorizontalTextAlignment" Value="Center" />
         <Setter Property="VerticalOptions" Value="CenterAndExpand" />
         <Setter Property="VerticalTextAlignment" Value="Center" />
