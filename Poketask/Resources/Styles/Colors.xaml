@@ -40,7 +40,7 @@
 
     <!--  Custom  -->
     <Color x:Key="BlueMain">#2480d4</Color>
-    <Color x:Key="BlueSecondary">#308ee6</Color>
+    <Color x:Key="BlueSecondary">#3d9af2</Color>
     <Color x:Key="BlueBackground">#f4f7ff</Color>
     <Color x:Key="GrayLight">#e0e0e0</Color>
     <Color x:Key="GrayShadow">#a1a1a1</Color>

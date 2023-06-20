@@ -29,8 +29,7 @@
 
             <Button
                 Clicked="GoBack"
-                Style="{StaticResource GoBackButton}"
-                Text="Back" />
+                Style="{StaticResource GoBackButton}" />
 
             <Label
                 Grid.Column="1"
