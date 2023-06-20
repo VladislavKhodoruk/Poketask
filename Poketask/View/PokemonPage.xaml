@@ -25,9 +25,7 @@
             ColumnSpacing="15"
             MinimumHeightRequest="60"
             VerticalOptions="Fill">
-
             <Button Clicked="GoBack" Style="{StaticResource GoBackButton}" />
-
             <Label
                 Grid.Column="1"
                 IsVisible="{Binding IsNotBusy}"
@@ -60,10 +58,7 @@
             <Button
                 Grid.Row="1"
                 Command="{Binding GetPokemonCommand}"
-                HorizontalOptions="Center"
-                Style="{StaticResource RefreshButton}"
-                Text="Refresh"
-                VerticalOptions="Center" />
+                Style="{StaticResource RefreshButton}" />
         </Grid>
 
         <VerticalStackLayout Padding="30">
@@ -89,7 +84,7 @@
                         Grid.Row="0"
                         Grid.Column="0"
                         FontFamily="SpaceMonoRegular"
-                        FontSize="25"
+                        FontSize="22"
                         HorizontalOptions="Start"
                         Text="{Binding Pokemon.name, Converter={StaticResource CapitalizeConverter}}"
                         VerticalOptions="Center" />
@@ -98,7 +93,8 @@
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
                         HeightRequest="250"
-                        HorizontalOptions="Center">
+                        HorizontalOptions="Center"
+                        WidthRequest="250">
                         <Image.Source>
                             <UriImageSource
                                 CacheValidity="5:00:00:00"
@@ -113,13 +109,13 @@
                         Grid.Row="2"
                         Grid.Column="0"
                         FontFamily="SpaceMonoRegular"
-                        FontSize="15"
+                        FontSize="18"
                         Text="{Binding Pokemon.height, StringFormat='Height: {0}'}" />
                     <Label
                         Grid.Row="2"
                         Grid.Column="1"
                         FontFamily="SpaceMonoRegular"
-                        FontSize="15"
+                        FontSize="18"
                         Text="{Binding Pokemon.weight, StringFormat='Weight: {0}'}" />
                     <CollectionView
                         Grid.Row="0"

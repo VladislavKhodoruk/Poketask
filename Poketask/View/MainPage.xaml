@@ -57,10 +57,7 @@
             <Button
                 Grid.Row="1"
                 Command="{Binding GetPokemonsCommand}"
-                HorizontalOptions="Center"
-                Style="{StaticResource RefreshButton}"
-                Text="Refresh"
-                VerticalOptions="Center" />
+                Style="{StaticResource RefreshButton}" />
         </Grid>
 
         <CollectionView

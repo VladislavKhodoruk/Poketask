@@ -39,9 +39,12 @@
     <Color x:Key="Blue300Accent">#A7CBF6</Color>
 
     <!--  Custom  -->
-    <Color x:Key="BlueMain">#2480d4</Color>
-    <Color x:Key="BlueSecondary">#3d9af2</Color>
-    <Color x:Key="BlueBackground">#f4f7ff</Color>
-    <Color x:Key="GrayLight">#e0e0e0</Color>
-    <Color x:Key="GrayShadow">#a1a1a1</Color>
-</ResourceDictionary>
+    <Color x:Key="BlueBackground">#F4F7FF</Color>
+    <Color x:Key="BlueDark">#1B3D80</Color>
+    <Color x:Key="BlueLight">#DCE4F5</Color>
+    <Color x:Key="BlueMain">#2480D4</Color>
+    <Color x:Key="BlueSecondary">#539ADB</Color>
+    <Color x:Key="GrayLight">#E0E0E0</Color>
+    <Color x:Key="GrayShadow">#A1A1A1</Color>
+    <Color x:Key="Mint">#23FCAD</Color>
+</ResourceDictionary> 
